@@ -275,4 +275,43 @@ class OrderController extends Controller
         ];
         return response($response, 201);
     }
+
+    public function getOrderAnalysis()
+    {
+        $analysis = Order::analyzeOrderData();
+        return response()->json([
+            'message' => 'Order analysis retrieved successfully',
+            'data' => $analysis,
+        ]);
+    }
+
+    public function getProductCounts()
+    {
+        // Get the product counts
+        $productCounts = Order::getProductCounts();
+        return response()->json([
+            'message' => 'Product counts retrieved successfully',
+            'data' => $productCounts,
+        ]);
+    }
+
+    public function getUserCounts()
+    {
+        // Get the User counts
+        $UserCounts = Order::getUserOrderStats();
+        return response()->json([
+            'message' => 'User counts retrieved successfully',
+            'data' => $UserCounts,
+        ]);
+    }
+
+    public function getSellerCounts()
+    {
+        // Get the Seller counts
+        $SellerCounts = Order::getSellerOrderStats();
+        return response()->json([
+            'message' => 'Seller counts retrieved successfully',
+            'data' => $SellerCounts,
+        ]);
+    }
 }

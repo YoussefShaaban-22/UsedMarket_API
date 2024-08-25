@@ -142,6 +142,10 @@ Route::delete('Feedback/{id}',[App\Http\Controllers\FeedbackController::class,'d
 
 // Order route
 Route::get('Order',[App\Http\Controllers\OrderController::class,'index'])->name('Order.index');
+Route::get('order-analysis',[App\Http\Controllers\OrderController::class,'getOrderAnalysis'])->name('Order.getOrderAnalysis');
+Route::get('product-analysis',[App\Http\Controllers\OrderController::class,'getProductCounts'])->name('Order.getProductCounts');
+Route::get('user-analysis',[App\Http\Controllers\OrderController::class,'getUserCounts'])->name('Order.getUserCounts');
+Route::get('seller-analysis',[App\Http\Controllers\OrderController::class,'getSellerCounts'])->name('Order.getSellerCounts');
 Route::get('Order/{id}',[App\Http\Controllers\OrderController::class,'show'])->name('Order.show');
 Route::get('OrderById/{id}',[App\Http\Controllers\OrderController::class,'showorderId'])->name('Order.showorderId');
 Route::post('Order',[App\Http\Controllers\OrderController::class,'store'])->name('Order.store');
@@ -169,6 +173,32 @@ Route::get('RefundByUserId/{id}',[App\Http\Controllers\RefundController::class,'
 Route::put('Refund/cancel/{id}',[App\Http\Controllers\RefundController::class,'cancel'])->name('Refund.cancel');
 Route::put('Refund/accept/{id}',[App\Http\Controllers\RefundController::class,'accept'])->name('Refund.accept');
 Route::delete('Refund/{id}',[App\Http\Controllers\RefundController::class,'destroy'])->name('Refund.destroy');
+
+// Information route
+Route::get('Information',[App\Http\Controllers\InformationController::class,'index'])->name('Information.index');
+Route::post('Information',[App\Http\Controllers\InformationController::class,'store'])->name('Information.store');
+Route::put('Information/{id}',[App\Http\Controllers\InformationController::class,'update'])->name('Information.update');
+Route::get('InformationID/{id}',[App\Http\Controllers\InformationController::class,'showById'])->name('Information.showById');
+
+// Social Link route
+Route::get('SocialLink',[App\Http\Controllers\SocialLinksController::class,'index'])->name('SocialLink.index');
+Route::post('SocialLink',[App\Http\Controllers\SocialLinksController::class,'store'])->name('SocialLink.store');
+Route::put('SocialLink/{id}',[App\Http\Controllers\SocialLinksController::class,'update'])->name('SocialLink.update');
+Route::get('SocialLinkID/{id}',[App\Http\Controllers\SocialLinksController::class,'showById'])->name('SocialLink.showById');
+
+// Pages route
+Route::get('ReturnPolicy',[App\Http\Controllers\PagesController::class,'ReturnPolicyindex'])->name('ReturnPolicy.index');
+Route::get('ReturnPolicyID/{id}',[App\Http\Controllers\PagesController::class,'ReturnPolicyshow'])->name('ReturnPolicy.showById');
+Route::put('ReturnPolicy/{id}',[App\Http\Controllers\PagesController::class,'ReturnPolicyupdate'])->name('ReturnPolicy.update');
+Route::get('Shippingpolicy',[App\Http\Controllers\PagesController::class,'Shippingpolicyindex'])->name('Shippingpolicy.index');
+Route::get('ShippingpolicyID/{id}',[App\Http\Controllers\PagesController::class,'Shippingpolicyshow'])->name('Shippingpolicy.showById');
+Route::put('Shippingpolicy/{id}',[App\Http\Controllers\PagesController::class,'Shippingpolicyupdate'])->name('Shippingpolicy.update');
+Route::get('PrivacyPolicy',[App\Http\Controllers\PagesController::class,'PrivacyPolicyindex'])->name('PrivacyPolicy.index');
+Route::get('PrivacyPolicyID/{id}',[App\Http\Controllers\PagesController::class,'PrivacyPolicyshow'])->name('PrivacyPolicy.showById');
+Route::put('PrivacyPolicy/{id}',[App\Http\Controllers\PagesController::class,'PrivacyPolicyupdate'])->name('PrivacyPolicy.update');
+Route::get('TermsService',[App\Http\Controllers\PagesController::class,'TermsServiceindex'])->name('TermsService.index');
+Route::get('TermsServiceID/{id}',[App\Http\Controllers\PagesController::class,'TermsServiceshow'])->name('TermsService.showById');
+Route::put('TermsService/{id}',[App\Http\Controllers\PagesController::class,'TermsServiceupdate'])->name('TermsService.update');
 
 
 //private route
