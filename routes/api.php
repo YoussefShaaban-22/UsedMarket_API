@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 //Auth route
 Route::get('User',[App\Http\Controllers\AuthController::class,'index'])->name('Auth.index');
 Route::get('UserByEmail/{email}',[App\Http\Controllers\AuthController::class,'getbyEmail'])->name('Auth.getbyEmail');
+Route::get('UserById/{id}',[App\Http\Controllers\AuthController::class,'getbyId'])->name('Auth.getbyId');
 Route::post('register',[App\Http\Controllers\AuthController::class,'register'])->name('Auth.register');
 Route::post('registerstaff',[App\Http\Controllers\AuthController::class,'registerstaff'])->name('Auth.registerstaff');
 Route::post('login',[App\Http\Controllers\AuthController::class,'login'])->name('Auth.login');
@@ -200,6 +201,11 @@ Route::get('TermsService',[App\Http\Controllers\PagesController::class,'TermsSer
 Route::get('TermsServiceID/{id}',[App\Http\Controllers\PagesController::class,'TermsServiceshow'])->name('TermsService.showById');
 Route::put('TermsService/{id}',[App\Http\Controllers\PagesController::class,'TermsServiceupdate'])->name('TermsService.update');
 
+// Chat route
+Route::post('chat',[App\Http\Controllers\ChatController::class,'getOrCreateChat'])->name('chat.getOrCreateChat');
+Route::get('chat/{chat_id}/messages',[App\Http\Controllers\ChatController::class,'getMessages'])->name('chat.getMessages');
+Route::post('message',[App\Http\Controllers\ChatController::class,'sendMessage'])->name('chat.sendMessage');
+Route::get('/chat/user/{userId}',[App\Http\Controllers\ChatController::class, 'getUserChats']);
 
 //private route
 Route::group(['middleware'=>["auth:sanctum"]],function(){

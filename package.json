@@ -11,6 +11,9 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "emailjs-com": "^3.2.0"
+        "emailjs-com": "^3.2.0",
+        "laravel-echo": "^1.16.1",
+        "pusher-js": "^8.4.0-rc2",
+        "weapp.socket.io": "^2.2.1"
     }
 }

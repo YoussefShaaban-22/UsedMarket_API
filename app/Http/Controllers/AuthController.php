@@ -22,6 +22,12 @@ class AuthController extends Controller
         return $User;
     }
 
+    public function getbyId($id)
+    {
+        $User = User::where('id',$id)->first();
+        return $User;
+    }
+
     public function register(Request $request)
     {
         $fileds = $request->validate([
