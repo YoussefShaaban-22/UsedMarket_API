@@ -143,6 +143,7 @@ Route::delete('Feedback/{id}',[App\Http\Controllers\FeedbackController::class,'d
 
 // Order route
 Route::get('Order',[App\Http\Controllers\OrderController::class,'index'])->name('Order.index');
+Route::get('orderDate-analysis',[App\Http\Controllers\OrderController::class,'getOrderDateAnalysis'])->name('Order.getOrderDateAnalysis');
 Route::get('order-analysis',[App\Http\Controllers\OrderController::class,'getOrderAnalysis'])->name('Order.getOrderAnalysis');
 Route::get('product-analysis',[App\Http\Controllers\OrderController::class,'getProductCounts'])->name('Order.getProductCounts');
 Route::get('user-analysis',[App\Http\Controllers\OrderController::class,'getUserCounts'])->name('Order.getUserCounts');
@@ -159,6 +160,10 @@ Route::put('Order/comment/{id}',[App\Http\Controllers\OrderController::class,'co
 Route::put('Order/user_required/{id}',[App\Http\Controllers\OrderController::class,'user_required'])->name('Order.user_required');
 Route::delete('Order/{id}',[App\Http\Controllers\OrderController::class,'destroy'])->name('Order.destroy');
 Route::put('Order/update-total-price/{id}', [App\Http\Controllers\OrderController::class, 'updateOrderTotalPrice'])->name('Order.updateOrderTotalPrice');
+Route::get('orderseller-analysis/{seller_id}',[App\Http\Controllers\OrderController::class,'getOrderSellerAnalysis'])->name('Order.getOrderSellerAnalysis');
+Route::get('productseller-analysis/{seller_id}',[App\Http\Controllers\OrderController::class,'getProductSellerCounts'])->name('Order.getProductSellerCounts');
+Route::get('userseller-analysis/{seller_id}',[App\Http\Controllers\OrderController::class,'getUserSellerCounts'])->name('Order.getUserSellerCounts');
+Route::get('orderDateSeller-analysis/{seller_id}',[App\Http\Controllers\OrderController::class,'getOrderSellerDateAnalysis'])->name('Order.getOrderSellerDateAnalysis');
 
 // Inquiry route
 Route::get('Inquiry',[App\Http\Controllers\InquiryController::class,'index'])->name('Inquiry.index');
@@ -203,6 +208,7 @@ Route::put('TermsService/{id}',[App\Http\Controllers\PagesController::class,'Ter
 
 // Chat route
 Route::post('chat',[App\Http\Controllers\ChatController::class,'getOrCreateChat'])->name('chat.getOrCreateChat');
+Route::get('chats',[App\Http\Controllers\ChatController::class,'getAllChats'])->name('chat.getAllChats');
 Route::get('chat/{chat_id}/messages',[App\Http\Controllers\ChatController::class,'getMessages'])->name('chat.getMessages');
 Route::post('message',[App\Http\Controllers\ChatController::class,'sendMessage'])->name('chat.sendMessage');
 Route::get('/chat/user/{userId}',[App\Http\Controllers\ChatController::class, 'getUserChats']);

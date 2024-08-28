@@ -249,11 +249,11 @@ class OrderController extends Controller
         ]);
         $order_id = $order->order_id;
         $updatedRows = Order::where('order_id', $order_id)
-        ->update(["total_price" => $request->input('total_price')]);
+            ->update(["total_price" => $request->input('total_price')]);
 
         $product_id = $order->product_id;
         $updatedProduct = Product::where('id', $product_id)
-        ->update(["quantity" => $request->input('quantity')]);
+            ->update(["quantity" => $request->input('quantity')]);
 
         // Return a success response
         return response()->json([
@@ -274,6 +274,15 @@ class OrderController extends Controller
             "message" => "Order deleted successfully.",
         ];
         return response($response, 201);
+    }
+
+    public function getOrderDateAnalysis()
+    {
+        $analysis = Order::analyzeOrderDataByDay();
+        return response()->json([
+            'message' => 'Order analysis retrieved successfully',
+            'data' => $analysis,
+        ]);
     }
 
     public function getOrderAnalysis()
@@ -312,6 +321,42 @@ class OrderController extends Controller
         return response()->json([
             'message' => 'Seller counts retrieved successfully',
             'data' => $SellerCounts,
+        ]);
+    }
+
+    public function getOrderSellerDateAnalysis($seller_id)
+    {
+        $analysis = Order::analyzeOrderSellerDataByDay($seller_id);
+        return response()->json([
+            'message' => 'Order analysis retrieved successfully',
+            'data' => $analysis,
+        ]);
+    }
+
+    public function getOrderSellerAnalysis($seller_id)
+    {
+        $analysis = Order::analyzeOrderSellerData($seller_id);
+        return response()->json([
+            'message' => 'Order analysis retrieved successfully',
+            'data' => $analysis,
+        ]);
+    }
+
+    public function getProductSellerCounts($seller_id)
+    {
+        $productCounts = Order::getProductSellerCounts($seller_id);
+        return response()->json([
+            'message' => 'Product counts retrieved successfully',
+            'data' => $productCounts,
+        ]);
+    }
+
+    public function getUserSellerCounts($seller_id)
+    {
+        $UserCounts = Order::getUserOrderSellerStats($seller_id);
+        return response()->json([
+            'message' => 'User counts retrieved successfully',
+            'data' => $UserCounts,
         ]);
     }
 }

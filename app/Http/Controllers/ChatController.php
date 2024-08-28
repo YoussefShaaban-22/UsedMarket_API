@@ -37,35 +37,35 @@ class ChatController extends Controller
     }
 
     public function sendMessage(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'chat_id' => 'required|integer',
-        'sender' => 'required|integer',
-        'receiver' => 'required|integer',
-        'message' => '',
-        'image' => '',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['error' => $validator->errors()], 400);
-    }
-
-    try {
-        $message = Message::create([
-            'chat_id' => $request->chat_id,
-            'sender' => $request->sender,
-            'receiver' => $request->receiver,
-            'message' => $request->message,
-            'image' => $request->image,
+    {
+        $validator = Validator::make($request->all(), [
+            'chat_id' => 'required|integer',
+            'sender' => 'required|integer',
+            'receiver' => 'required|integer',
+            'message' => '',
+            'image' => '',
         ]);
 
-        event(new MessageSent($message));
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
-        return response()->json($message);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Failed to send message.'], 500);
+        try {
+            $message = Message::create([
+                'chat_id' => $request->chat_id,
+                'sender' => $request->sender,
+                'receiver' => $request->receiver,
+                'message' => $request->message,
+                'image' => $request->image,
+            ]);
+
+            event(new MessageSent($message));
+
+            return response()->json($message);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to send message.'], 500);
+        }
     }
-}
 
     public function getUserChats($userId)
     {
@@ -75,6 +75,21 @@ class ChatController extends Controller
             ->orWhere('user2', $userId)
             ->get();
 
+        foreach ($chats as $chat) {
+            $chat->last_message = $chat->messages->first();
+        }
+
+        return response()->json($chats);
+    }
+
+    public function getAllChats()
+    {
+        // Retrieve all chats with the latest message included
+        $chats = Chat::with(['messages' => function ($query) {
+            $query->orderBy('created_at', 'desc')->first();
+        }])->get();
+
+        // Attach the latest message to each chat
         foreach ($chats as $chat) {
             $chat->last_message = $chat->messages->first();
         }
